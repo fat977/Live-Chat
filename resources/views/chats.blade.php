@@ -1,13 +1,16 @@
-@extends('index')
+@extends('layouts.master')
 @php use Carbon\Carbon; @endphp
-
 @section('chat')
 <div class="chat">
     <div class="chat-header clearfix">
         <div class="row">
             <div class="col-lg-6">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                    <img src="{{ asset('storage/avatars/'.$user->image) }}" alt="avatar">
+                    @if (empty($user->image))
+                        <img src="{{ asset('storage/avatars/default.png') }}"alt="User Image">
+                    @else
+                        <img src="{{ asset('storage/avatars/'.$user->image) }}" alt="avatar">
+                    @endif
                 </a>
                 <div class="chat-about">
                     <h6 class="m-b-0">{{ $user->name }}</h6>
@@ -110,12 +113,5 @@
         $("#chat-area").append(receiverMessage);
 
     });
-
 </script>
-{{-- <script src="{{ asset('assets/plugins/jquery-1.12.0.min.js') }}"></script>
-<script>
-    $('#image').on('click', function() {
-        $('#file').click();
-    });
-</script> --}}
 @endsection

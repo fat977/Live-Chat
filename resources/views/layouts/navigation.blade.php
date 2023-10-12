@@ -19,8 +19,11 @@
             </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <div><img src="{{ asset('storage/avatars/'.Auth::user()->image ) }}" alt="user-image" style="width: 5%; border-radius:50%; float:right; margin-right:20px"></div>
-
+                @if (empty(Auth::user()->image))
+                    <div><img src="{{ asset('storage/avatars/default.png') }}"alt="User Image" style="width: 5%; border-radius:50%; float:right; margin-right:20px"></div>
+                @else
+                    <div><img src="{{ asset('storage/avatars/'.Auth::user()->image ) }}" alt="user-image" style="width: 5%; border-radius:50%; float:right; margin-right:20px"></div>
+                @endif
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">

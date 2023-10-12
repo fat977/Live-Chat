@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','verifyUser')->group(function () {
     Route::get('/dashboard',[ChatController::class,'dashboard'])->name('dashboard');
     Route::get('chat/{user_id}',[ChatController::class,'chat'])->name('chat');
     Route::get('/delete/{message_id}',[ChatController::class,'deleteChat'])->name('delete.chat');

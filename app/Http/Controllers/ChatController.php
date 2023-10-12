@@ -12,9 +12,8 @@ class ChatController extends Controller
 {
     //
     public function dashboard(){
-        $users = User::query()->where('id','!=',Auth::user()->id)->get();
         
-        return view('index',compact('users'));
+        return view('dashboard');
     }
 
     public function chat($user_id){
@@ -27,7 +26,7 @@ class ChatController extends Controller
     
         $user = User::query()->where('id',$user_id)->first();
         
-        return view('chat',compact('user','users','sentMessages'));
+        return view('chats',compact('user','users','sentMessages'));
     }
 
     public function send(Request $request , $receiver_id){

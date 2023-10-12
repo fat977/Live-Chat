@@ -3,12 +3,17 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable /* implements MustVerifyEmail */
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,10 +22,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
+        'code',
+        'code_expired_at',
+        'image'
     ];
 
     /**
@@ -43,10 +53,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function messages1(){
-        return $this->hasMany(Message::class,'receiver');
+    public static function getUsers(){
+        $users = User::query()->where('id','!=',Auth::user()->id)->get();
+        return $users;
     }
-    public function messages2(){
-        return $this->hasMany(Message::class,'sender');
-    }
+
+  
 }

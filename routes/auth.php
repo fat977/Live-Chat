@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
                 ->middleware('throttle:6,1')
                 ->name('verification.send');
 
+    Route::get('check-code',[RegisteredUserController::class,'code']) ->middleware('auth')->name('auth.code');
+    Route::post('check-code',[RegisteredUserController::class,'checkCode'])->name('auth.check.code');
+
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
                 ->name('password.confirm');
 
